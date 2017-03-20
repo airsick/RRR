@@ -1,0 +1,10 @@
+<ion-content ng-controller = "RestaurantListCtrl" ng-init="getList();">
+	<button class="button button-positive button-full" ng-click="getList();">Nearby Restaurants</button>
+	<div class="card" ng-repeat="place in places">
+		<div class="item item-avatar">
+			<img src="{{place.photos[0].getUrl({maxWidth:50})}}" height="42" width="42">
+			<h2>{{place.name}}</h2>
+			<h4>{{place.vicinity}}</h4>
+		</div>
+	</div>
+</ion-content>
