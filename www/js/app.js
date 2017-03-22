@@ -192,9 +192,9 @@ angular.module('starter', ['ionic'])
   $scope.getList = function(){
     var request = {
       location: $scope.map.getCenter(),
-      radius: '5000',
+      radius: '500',
       types: ['restaurant'],
-      rankby: 'distance'
+      //rankby: 'distance'
     };
 
     service = new google.maps.places.PlacesService($scope.map);
@@ -203,8 +203,33 @@ angular.module('starter', ['ionic'])
     function callback(results, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         $scope.places = results;
+        $scope.$apply();
         console.log(results);
       }
     }
   }
+  $scope.setRestaurant = function(place){
+    service.getDetails({
+          placeId: place.place_id
+        }, function(response, status) {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            $rootScope.currentPlace = response;
+            $rootScope.$apply();
+            console.log(response);
+          }
+        });
+    //$rootScope.currentPlace = place;
+  }
+}).directive( 'elemReady', function( $parse ) {
+   return {
+       restrict: 'A',
+       link: function( $scope, elem, attrs ) {    
+          elem.ready(function(){
+            $scope.$apply(function(){
+                var func = $parse(attrs.elemReady);
+                func($scope);
+            })
+          })
+       }
+    }
 })

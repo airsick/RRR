@@ -1,0 +1,35 @@
+<ion-content ng-controller="RestaurantListCtrl">
+	<div class="list card">
+		<div class="item item-avatar">
+			<img src="{{currentPlace.photos[0].getUrl({maxWidth:50})}}" height="42" width="42">
+			<h2>{{currentPlace.name}}</h2>
+			<h4>{{currentPlace.vicinity}}</h4>
+			<h4>Number: {{currentPlace.formatted_phone_number}}</h4>
+		</div>
+
+		<div class="item item-body">
+
+			<script>
+			console.log("comething");
+	        $(document).on('load', '#something', function() {
+	          console.log('something');
+	          $('.blueberry').blueberry();
+	        });
+			</script>
+
+			<div id="something" class="blueberry">
+			  <ul class="slides">
+			    <!--<li  ng-repeat="photo in currentPlace.photos"><img src="{{photo.getUrl({maxHeight:300})}}" /></li>-->
+			    <li><img src="pic/triggered.png" /></li>
+			    <li><img src="pic/flirt.png" /></li>
+			  </ul>
+			</div>
+			<!--<div class="row">
+				<div class="col" ng-repeat="photo in currentPlace.photos">
+					<img src="{{photo.getUrl({maxHeight:300})}}">
+				</div>
+			</div>-->
+		</div>
+	</div>
+	<button class="button button-positive button-full" ng-click="setPage('restaurantList');">Back</button>
+</ion-content>

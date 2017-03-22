@@ -1,6 +1,7 @@
-<ion-content ng-controller = "RestaurantListCtrl" ng-init="getList();">
+<ion-content ng-controller = "RestaurantListCtrl" ng-init="getList()">
 	<button class="button button-positive button-full" ng-click="getList();">Nearby Restaurants</button>
-	<div class="card" ng-repeat="place in places">
+	<button class="button button-positive button-full" ng-click="setPage('map');">Back to Map</button>
+	<div class="card" ng-repeat="place in places" ng-click="setRestaurant(place);setPage('restaurantPage')">
 		<div class="item item-avatar">
 			<img src="{{place.photos[0].getUrl({maxWidth:50})}}" height="42" width="42">
 			<h2>{{place.name}}</h2>
