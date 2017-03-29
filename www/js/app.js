@@ -188,7 +188,10 @@ angular.module('starter', ['ionic'])
     }
   }
 })*/
-.controller('RestaurantListCtrl', function($scope, $rootScope){
+.controller('RestaurantListCtrl', function($scope, $rootScope, $ionicSlideBoxDelegate){
+  $scope.updateSlide = function(){
+    $ionicSlideBoxDelegate.update();
+  }
   $scope.getList = function(){
     var request = {
       location: $scope.map.getCenter(),
