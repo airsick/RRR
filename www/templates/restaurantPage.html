@@ -10,29 +10,58 @@
 
 		<div class="item item-body">
 
-			<script>
-			console.log("comething");
-	        $(document).on('load', '#something', function() {
-	          console.log('something');
-	          $('.blueberry').blueberry();
-	        });
-			</script>
-
 			<ion-slide-box>
 				<ion-slide ng-repeat="photo in currentPlace.photos" ng-init="updateSlide()"><img src="{{photo.getUrl({maxHeight:300})}}" /></ion-slide>
 			</ion-slide-box>
-			<!--<div id="something">
-			  <ul class="slides">
-			    <li  ng-repeat="photo in currentPlace.photos"><img src="{{photo.getUrl({maxHeight:300})}}" /></li>
-			    <!--<li><img src="pic/triggered.png" /></li>
-			    <li><img src="pic/flirt.png" /></li>-->
-			 <!-- </ul>
-			</div>-->
-			<!--<div class="row">
-				<div class="col" ng-repeat="photo in currentPlace.photos">
-					<img src="{{photo.getUrl({maxHeight:300})}}">
+
+			<div class="card" ng-controller="reviewCtrl">
+				<div class="item item-body">
+					<h2>Your Review</h2>
+					<div id="reviewStars">
+						<h1>
+							<i class="icon {{uiStars[0]}}"></i>
+							<i class="icon {{uiStars[1]}}"></i>
+							<i class="icon {{uiStars[2]}}"></i>
+							<i class="icon {{uiStars[3]}}"></i>
+							<i class="icon {{uiStars[4]}}"></i>
+						</h1>
+					</div>
 				</div>
-			</div>-->
+
+				<div class="item item-body">
+					<p ng-if='review.text==""'>No review yet, care to add one?</p>
+					<p>{{review.text}}</p>
+				</div>
+				<button class="button button-positive icon-left ion-compose" ng-click="modal.show()">Edit Review</button>
+			</div>
+					
+			<h2>All Reviews</h2>
+
+			<div class="card" ng-controller="reviewCtrl" ng-repeat="userReview in allReviews">
+				<div class="item item-body">
+					<div id="reviewStars">
+						<h1>
+							<i class="icon ion-ios-star"></i>
+
+							<i class="icon ion-ios-star-outline" ng-if="userReview.stars<=1"></i>
+							<i class="icon ion-ios-star" ng-if="userReview.stars>1"></i>
+
+							<i class="icon ion-ios-star-outline" ng-if="userReview.stars<=2"></i>
+							<i class="icon ion-ios-star" ng-if="userReview.stars>2"></i>
+
+							<i class="icon ion-ios-star-outline" ng-if="userReview.stars<=3"></i>
+							<i class="icon ion-ios-star" ng-if="userReview.stars>3"></i>
+
+							<i class="icon ion-ios-star-outline" ng-if="userReview.stars<=4"></i>
+							<i class="icon ion-ios-star" ng-if="userReview.stars>4"></i>
+						</h1>
+					</div>
+				</div>
+
+				<div class="item item-body">
+					<p>{{userReview.text}}</p>
+				</div>
+			</div>
 		</div>
 	</div>
 </ion-content>

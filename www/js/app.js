@@ -6,9 +6,10 @@
 angular.module('starter', ['ionic'])
 
 .controller("PageCtrl", function($scope) {
-  $scope.page = "map";
+  $scope.page = "loginPage";
   $scope.setPage = function(page) {
     $scope.page = page;
+    //$scope.$apply();
   }
 })
 
@@ -195,7 +196,7 @@ angular.module('starter', ['ionic'])
   $scope.getList = function(){
     var request = {
       location: $scope.map.getCenter(),
-      radius: '500',
+      radius: '5000',
       types: ['restaurant'],
       //rankby: 'distance'
     };
@@ -218,6 +219,7 @@ angular.module('starter', ['ionic'])
           if (status === google.maps.places.PlacesServiceStatus.OK) {
             $rootScope.currentPlace = response;
             $rootScope.$apply();
+            $rootScope.getReview();
             console.log(response);
           }
         });
@@ -235,4 +237,134 @@ angular.module('starter', ['ionic'])
           })
        }
     }
+})
+.controller('LoginCtrl', function($scope, $rootScope){
+  $scope.Login = function() {
+    firebase.auth().signInWithEmailAndPassword($scope.loginData.email, $scope.loginData.password).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      $scope.errorMessage = error.message;
+      // ...
+    });
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        console.log(user);
+        $scope.setPage('map');
+        $scope.$apply();
+      } else {
+        // User is signed out.
+        // ...
+      }
+    });
+  };
+
+  $rootScope.loginCheck = function(returnPage) {
+    var user = firebase.auth().currentUser;
+
+    if (user) {
+      // User is signed in.
+      $scope.setPage(returnPage);
+    }
+  }
+
+  $rootScope.logout = function() {
+    firebase.auth().signOut();
+  }
+
+  $scope.signup = function() {
+    if($scope.loginData.password != $scope.loginData.passwordConfirm){
+      $scope.errorMessage = "passwords do not match"
+    }else {
+      firebase.auth().createUserWithEmailAndPassword($scope.loginData.email, $scope.loginData.password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        $scope.errorMessage = error.message;
+        // ...
+      });
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          console.log(user);
+          user.updateProfile({
+            displayName: $scope.loginData.name
+          }).then(function() {
+            // Update successful.
+            $scope.setPage('map');
+          }, function(error) {
+            // An error happened.
+          });
+        }
+      });
+    }
+  }
+
+  $scope.loginData = {
+    email:"",
+    password:""
+  };
+}).controller('reviewCtrl', function($scope, $rootScope, $ionicModal){
+
+  $rootScope.getAllReviews = function() {
+    firebase.database().ref('restaurants/reviews/' + $rootScope.currentPlace.id).once('value').then(function(snapshot) {
+      $rootScope.allReviews = snapshot.val();
+      console.log($scope.allReviews);
+      $scope.$apply();
+    });
+  }
+
+  $rootScope.getReview = function() {
+    $rootScope.getAllReviews();
+    $scope.uiStars = [];
+
+    var userId = firebase.auth().currentUser.uid;
+    firebase.database().ref('restaurants/reviews/' + $rootScope.currentPlace.id + '/' + userId).once('value').then(function(snapshot) {
+      $scope.review = snapshot.val();
+      console.log($scope.review);
+      if($scope.review==null){
+        $scope.review = {
+          text:"",
+          stars:0
+        };
+      }
+      for(var i=0;i<5;i++) {
+        $scope.uiStars[i]="ion-ios-star-outline";
+      }
+      for(var i=0;i<$scope.review.stars;i++) {
+        $scope.uiStars[i]="ion-ios-star";
+      }
+      $scope.$apply();
+      console.log('data retrieved');
+    });
+  }
+
+
+  $scope.setReview = function() {
+    var userId = firebase.auth().currentUser.uid;
+    firebase.database().ref('restaurants/reviews/' + $rootScope.currentPlace.id + '/' + userId).set({
+      text: $scope.review.text,
+      stars: $scope.review.stars
+    }).then(function() {
+      $scope.getAllReviews();
+      $scope.$apply();
+      $scope.modal.hide();
+    });
+  }
+
+  $scope.setStars = function(stars) {
+    for(var i=0;i<5;i++) {
+      $scope.uiStars[i]="ion-ios-star-outline";
+    }
+    for(var i=0;i<stars;i++) {
+      $scope.uiStars[i]="ion-ios-star";
+    }
+    $scope.review.stars = stars;
+    console.log($scope.review.stars);
+  }
+
+  $ionicModal.fromTemplateUrl('templates/reviewPage.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+
 })

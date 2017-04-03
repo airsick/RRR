@@ -1,0 +1,19 @@
+<div ng-controller = "LoginCtrl">
+	{{errorMessage}}
+	<div class="list list-inset">
+	  <label class="item item-input">
+	    <input type="text" placeholder="Name" ng-model="loginData.name">
+	  </label>
+	  <label class="item item-input">
+	    <input type="text" placeholder="Email" ng-model="loginData.email">
+	  </label>
+	  <label class="item item-input">
+	    <input type="text" placeholder="Password" ng-model="loginData.password">
+	  </label>
+	  <label class="item item-input">
+	    <input type="text" placeholder="Confirm Password" ng-model="loginData.passwordConfirm">
+	  </label>
+	</div>
+	<button class="button button-positive button-full" ng-click="signup();">Signup</button>
+	<button class="button button-positive button-full" ng-click="setPage('loginPage');">Back</button>
+</div>
