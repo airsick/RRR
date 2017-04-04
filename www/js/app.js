@@ -269,6 +269,7 @@ angular.module('starter', ['ionic'])
 
   $rootScope.logout = function() {
     firebase.auth().signOut();
+    $scope.setPage('loginPage');
   }
 
   $scope.signup = function() {
@@ -322,6 +323,7 @@ angular.module('starter', ['ionic'])
     var userId = firebase.auth().currentUser.uid;
     firebase.database().ref('restaurants/reviews/' + $rootScope.currentPlace.id + '/' + userId).once('value').then(function(snapshot) {
       if(snapshot.val()!=null) $rootScope.review = snapshot.val();
+      $scope.setStars($rootScope.review.stars);
       console.log($rootScope.review);
       $scope.$apply();
       $rootScope.getAllReviews();
@@ -333,13 +335,25 @@ angular.module('starter', ['ionic'])
   $scope.setReview = function() {
     var userId = firebase.auth().currentUser.uid;
     firebase.database().ref('restaurants/reviews/' + $rootScope.currentPlace.id + '/' + userId).set({
-      text: $scope.review.text,
-      stars: $scope.review.stars
+      text: $rootScope.review.text,
+      stars: $rootScope.review.stars,
+      displayName: firebase.auth().currentUser.displayName
     }).then(function() {
       $scope.getAllReviews();
       $scope.$apply();
       $scope.modal.hide();
     });
+  }
+
+  $scope.setStars = function(stars) {
+    $rootScope.uiStars = [];
+    $rootScope.review.stars = stars;
+    for(var i=0;i<5;i++){
+      $rootScope.uiStars[i] = 'ion-ios-star-outline';
+    }
+    for(var i=0;i<stars;i++){
+      $rootScope.uiStars[i] = 'ion-ios-star';
+    }
   }
 
   $ionicModal.fromTemplateUrl('templates/reviewPage.html', {

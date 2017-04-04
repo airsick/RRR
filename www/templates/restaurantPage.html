@@ -49,7 +49,8 @@
 			<div class="card" ng-controller="reviewCtrl" ng-repeat="userReview in allReviews">
 				<div class="item item-body">
 					<div id="reviewStars">
-						<h1>
+						<h2>{{userReview.displayName}}</h2>
+						<h2>
 							<i class="icon ion-ios-star"></i>
 
 							<i class="icon ion-ios-star-outline" ng-if="userReview.stars<=1"></i>
@@ -63,7 +64,7 @@
 
 							<i class="icon ion-ios-star-outline" ng-if="userReview.stars<=4"></i>
 							<i class="icon ion-ios-star" ng-if="userReview.stars>4"></i>
-						</h1>
+						</h2>
 					</div>
 				</div>
 
