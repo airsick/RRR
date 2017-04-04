@@ -19,11 +19,20 @@
 					<h2>Your Review</h2>
 					<div id="reviewStars">
 						<h1>
-							<i class="icon {{uiStars[0]}}"></i>
-							<i class="icon {{uiStars[1]}}"></i>
-							<i class="icon {{uiStars[2]}}"></i>
-							<i class="icon {{uiStars[3]}}"></i>
-							<i class="icon {{uiStars[4]}}"></i>
+							<i class="icon ion-ios-star-outline" ng-if="review.stars<=0"></i>
+							<i class="icon ion-ios-star" ng-if="review.stars>0"></i>
+
+							<i class="icon ion-ios-star-outline" ng-if="review.stars<=1"></i>
+							<i class="icon ion-ios-star" ng-if="review.stars>1"></i>
+
+							<i class="icon ion-ios-star-outline" ng-if="review.stars<=2"></i>
+							<i class="icon ion-ios-star" ng-if="review.stars>2"></i>
+
+							<i class="icon ion-ios-star-outline" ng-if="review.stars<=3"></i>
+							<i class="icon ion-ios-star" ng-if="review.stars>3"></i>
+
+							<i class="icon ion-ios-star-outline" ng-if="review.stars<=4"></i>
+							<i class="icon ion-ios-star" ng-if="review.stars>4"></i>
 						</h1>
 					</div>
 				</div>
