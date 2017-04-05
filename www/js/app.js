@@ -130,8 +130,9 @@ angular.module('starter', ['ionic'])
         // Restaurant Search
         var request = {
           location: map.getCenter(),
-          radius: '1000',
-          types: ['restaurant']
+          //radius: '1000',
+          types: ['restaurant'],
+          rankBy: google.maps.places.RankBy.DISTANCE
         };
 
         service = new google.maps.places.PlacesService(map);
@@ -199,9 +200,9 @@ angular.module('starter', ['ionic'])
   $scope.getList = function(){
     var request = {
       location: $scope.map.getCenter(),
-      radius: '5000',
+      //radius: '5000',
       types: ['restaurant'],
-      //rankby: 'distance'
+      rankBy: google.maps.places.RankBy.DISTANCE
     };
 
     service = new google.maps.places.PlacesService($scope.map);
