@@ -1,0 +1,35 @@
+<ion-modal-view>
+  <ion-header-bar class="bar bar-header bar-positive">
+    <h1 class="title">Review</h1>
+    <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+  </ion-header-bar>
+  <ion-content class="padding">
+    <div class="list">
+
+      <!--<button class="button button-icon icon ion-ios-star-outline" ng-if="review.stars<=0" ng-click="setStars(1)"></button>
+      <button class="button button-icon icon ion-ios-star" ng-if="review.stars>0" ng-click="setStars(1)"></button>
+
+      <button class="button button-icon icon ion-ios-star-outline" ng-if="review.stars<=1" ng-click="setStars(2)"></button>
+      <button class="button button-icon icon ion-ios-star" ng-if="review.stars>1" ng-click="setStars(2)"></button>
+
+      <button class="button button-icon icon ion-ios-star-outline" ng-if="review.stars<=2" ng-click="setStars(3)"></button>
+      <button class="button button-icon icon ion-ios-star" ng-if="review.stars>2" ng-click="setStars(3)"></button>
+
+      <button class="button button-icon icon ion-ios-star-outline" ng-if="review.stars<=3" ng-click="setStars(4)"></button>
+      <button class="button button-icon icon ion-ios-star" ng-if="review.stars>3" ng-click="setStars(4)"></button>
+
+      <button class="button button-icon icon ion-ios-star-outline" ng-if="review.stars<=4" ng-click="setStars(5)"></button>
+      <button class="button button-icon icon ion-ios-star" ng-if="review.stars>4" ng-click="setStars(5)"></button>-->
+
+      <button class="button button-icon icon {{uiStars[0]}}" ng-click="setStars(1)"></button>
+      <button class="button button-icon icon {{uiStars[1]}}" ng-click="setStars(2)"></button>
+      <button class="button button-icon icon {{uiStars[2]}}" ng-click="setStars(3)"></button>
+      <button class="button button-icon icon {{uiStars[3]}}" ng-click="setStars(4)"></button>
+      <button class="button button-icon icon {{uiStars[4]}}" ng-click="setStars(5)"></button>
+      <label class="item item-input">
+        <textarea style="height:200px" ng-model="review.text"></textarea>
+      </label>
+      <button class="button button-full button-positive" ng-click="setReview()">Create</button>
+    </div>
+  </ion-content>
+</ion-modal-view>

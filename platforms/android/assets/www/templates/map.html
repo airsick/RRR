@@ -4,6 +4,6 @@
         <input id="pac-input" type="text" placeholder="Search Location" data-tap-disabled="true" ng-change='disableTap()' ng-model="search">
     
     </div>
-    <div id="map" data-tap-disabled="true"></div>
+    <div id="map" data-tap-disabled="true" ng-controller="RestaurantListCtrl"></div>
     <button  ng-controller="RestaurantListCtrl" class="button button-full button-positive" ng-click="setPage('restaurantList');">Nearby Restaurants</button>
 </ion-content>

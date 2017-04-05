@@ -32,7 +32,7 @@ angular.module('starter', ['ionic'])
 })
 .controller('MapCtrl', function($scope, $rootScope, $ionicLoading) {
     loadMap = function() {
-        var myLatlng = new google.maps.LatLng(37.3000, -120.4833);
+        var myLatlng = new google.maps.LatLng(43.0187573, -83.6879160);
  
         var mapOptions = {
             center: myLatlng,
@@ -155,6 +155,9 @@ angular.module('starter', ['ionic'])
           });
 
           google.maps.event.addListener(marker, 'click', function() {
+            $rootScope.setRestaurant(place);
+            $scope.setPage('restaurantPage');
+            $scope.$apply();
             infowindow.setContent(place.name);
             infowindow.open(map, this);
           });
@@ -163,7 +166,7 @@ angular.module('starter', ['ionic'])
         $rootScope.map = map;
         console.log($scope.page);
       }
- 
+  
     google.maps.event.addDomListener(window, 'load', loadMap());
  
 })
@@ -212,7 +215,7 @@ angular.module('starter', ['ionic'])
       }
     }
   }
-  $scope.setRestaurant = function(place){
+  $rootScope.setRestaurant = function(place){
     service.getDetails({
           placeId: place.place_id
         }, function(response, status) {

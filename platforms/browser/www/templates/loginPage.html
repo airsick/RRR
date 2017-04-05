@@ -1,0 +1,13 @@
+<div ng-controller = "LoginCtrl" ng-init="loginCheck('map')">
+	{{errorMessage}}
+	<div class="list list-inset">
+	  <label class="item item-input">
+	    <input type="text" placeholder="Email" ng-model="loginData.email">
+	  </label>
+	  <label class="item item-input">
+	    <input type="password" placeholder="Password" ng-model="loginData.password">
+	  </label>
+	</div>
+	<button class="button button-positive button-full" ng-click="Login();">Login</button>
+	<button class="button button-positive button-full" ng-click="setPage('signupPage');">Signup</button>
+</div>

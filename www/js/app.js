@@ -155,6 +155,9 @@ angular.module('starter', ['ionic'])
           });
 
           google.maps.event.addListener(marker, 'click', function() {
+            $rootScope.setRestaurant(place);
+            $scope.setPage('restaurantPage');
+            $scope.$apply();
             infowindow.setContent(place.name);
             infowindow.open(map, this);
           });
@@ -212,7 +215,7 @@ angular.module('starter', ['ionic'])
       }
     }
   }
-  $scope.setRestaurant = function(place){
+  $rootScope.setRestaurant = function(place){
     service.getDetails({
           placeId: place.place_id
         }, function(response, status) {
