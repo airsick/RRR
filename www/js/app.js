@@ -32,7 +32,7 @@ angular.module('starter', ['ionic'])
 })
 .controller('MapCtrl', function($scope, $rootScope, $ionicLoading) {
     loadMap = function() {
-        var myLatlng = new google.maps.LatLng(37.3000, -120.4833);
+        var myLatlng = new google.maps.LatLng(43.0187573, -83.6879160);
  
         var mapOptions = {
             center: myLatlng,
@@ -163,7 +163,7 @@ angular.module('starter', ['ionic'])
         $rootScope.map = map;
         console.log($scope.page);
       }
- 
+  
     google.maps.event.addDomListener(window, 'load', loadMap());
  
 })
@@ -290,6 +290,7 @@ angular.module('starter', ['ionic'])
           }).then(function() {
             // Update successful.
             $scope.setPage('map');
+            $scope.$apply();
           }, function(error) {
             // An error happened.
           });
